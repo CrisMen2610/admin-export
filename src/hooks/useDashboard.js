@@ -1,5 +1,15 @@
 import { useEffect, useState } from 'react';
-import { supabase } from '../lib/supabase';
+import { supabase, isSupabaseConfigured } from '../lib/supabase';
+import {
+  adminMetrics,
+  consultedByScoutsData,
+  newRegistrationsByDay,
+  newAthletesByMonth,
+  athletesDataCompletionByDay,
+  athletesBySport,
+  getPendingAthletes,
+} from '../data/adminMockData';
+import { talentPlayers } from '../data/mockData';
 
 const DAYS_ES   = ['DOM', 'LUN', 'MAR', 'MIÉ', 'JUE', 'VIE', 'SÁB'];
 const MONTHS_ES = ['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic'];
@@ -34,6 +44,21 @@ export function useDashboard() {
     let cancelled = false;
     async function load() {
       try {
+        if (!isSupabaseConfigured) {
+          if (!cancelled) {
+            setData({
+              adminMetrics,
+              consultedByScoutsData,
+              newRegistrationsByDay,
+              newAthletesByMonth,
+              athletesDataCompletionByDay,
+              athletesBySport,
+              pendingAthletes: getPendingAthletes(talentPlayers),
+            });
+          }
+          return;
+        }
+
         const [
           { data: athletes,     error: e1 },
           { data: scouts,       error: e2 },

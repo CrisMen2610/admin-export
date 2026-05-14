@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
-import { supabase } from '../lib/supabase';
+import { supabase, isSupabaseConfigured } from '../lib/supabase';
+import { talentPlayers } from '../data/mockData';
 
 const DEFAULT_AVATAR =
   'https://images.unsplash.com/photo-1644492097455-d5f39f458fcd?w=200&h=200&fit=crop';
@@ -30,6 +31,28 @@ export function useAthletes() {
     let cancelled = false;
     async function load() {
       try {
+        if (!isSupabaseConfigured) {
+          if (!cancelled) {
+            setAthletes(
+              talentPlayers.map((player) => ({
+                id: player.id,
+                name: player.name,
+                age: player.age,
+                sport: player.sport || '—',
+                position: player.position || '—',
+                club: player.club || '—',
+                nationality: player.nationality || '—',
+                location: player.nationality || '—',
+                currentRating: player.currentRating ?? 0,
+                potential: player.potential ?? null,
+                avatar: player.avatar || DEFAULT_AVATAR,
+                status: 'ACTIVO',
+              }))
+            );
+          }
+          return;
+        }
+
         const [{ data: raw, error: e1 }, { data: careers, error: e2 }] =
           await Promise.all([
             supabase.from('v_scouting_athletes').select('*'),

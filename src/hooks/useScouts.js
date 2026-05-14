@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
-import { supabase } from '../lib/supabase';
+import { supabase, isSupabaseConfigured } from '../lib/supabase';
+import { talentScouts } from '../data/mockData';
 
 const DEFAULT_AVATAR =
   'https://images.unsplash.com/photo-1644492097455-d5f39f458fcd?w=200&h=200&fit=crop';
@@ -13,6 +14,13 @@ export function useScouts() {
     let cancelled = false;
     async function load() {
       try {
+        if (!isSupabaseConfigured) {
+          if (!cancelled) {
+            setScouts(talentScouts);
+          }
+          return;
+        }
+
         const [{ data: raw, error: e1 }, { data: links, error: e2 }] =
           await Promise.all([
             supabase.from('scouts').select('*'),

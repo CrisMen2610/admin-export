@@ -4,6 +4,7 @@ const url = import.meta.env.VITE_SUPABASE_URL;
 const key = import.meta.env.VITE_SUPABASE_ANON_KEY;
 const missingSupabaseEnvMessage =
   'Faltan VITE_SUPABASE_URL / VITE_SUPABASE_ANON_KEY en .env';
+export const isSupabaseConfigured = Boolean(url && key);
 
 function createDisabledQuery() {
   const result = {
@@ -25,11 +26,11 @@ function createDisabledQuery() {
   return query;
 }
 
-if (!url || !key) {
+if (!isSupabaseConfigured) {
   console.error(`[supabase] ${missingSupabaseEnvMessage}`);
 }
 
-export const supabase = url && key
+export const supabase = isSupabaseConfigured
   ? createClient(url, key)
   : {
       from: () => createDisabledQuery(),

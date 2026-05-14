@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react';
-import { supabase } from '../lib/supabase';
+import { supabase, isSupabaseConfigured } from '../lib/supabase';
+import { scoutingMetrics } from '../data/mockData';
+import { talentExposureData as adminTalentExposureData } from '../data/adminMockData';
 
 const DAYS_ES = ['DOM', 'LUN', 'MAR', 'MIÉ', 'JUE', 'VIE', 'SÁB'];
 
@@ -12,6 +14,19 @@ export function useReports() {
     let cancelled = false;
     async function load() {
       try {
+        if (!isSupabaseConfigured) {
+          if (!cancelled) {
+            setData({
+              scoutingMetrics,
+              talentExposureData: adminTalentExposureData.map((row) => ({
+                day: row.day,
+                value: row.value,
+              })),
+            });
+          }
+          return;
+        }
+
         const [
           { data: scouts,       error: e1 },
           { data: links,        error: e2 },
