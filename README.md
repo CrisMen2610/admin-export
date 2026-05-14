@@ -88,3 +88,24 @@ Abre `http://localhost:5173/` y entra al panel en `/admin`.
 npm run build
 ```
 
+## Deploy en GitHub Pages
+
+Este repositorio despliega automáticamente a GitHub Pages con GitHub Actions.
+
+### 1) Configuración única en GitHub
+
+1. Ve a **Settings → Pages** en el repositorio.
+2. En **Build and deployment**, selecciona **Source: GitHub Actions**.
+
+### 2) Publicar
+
+- Cada push a `main` ejecuta `.github/workflows/deploy-pages.yml`.
+- También puedes lanzarlo manualmente desde **Actions → Deploy to GitHub Pages → Run workflow**.
+
+### 3) URL publicada
+
+- El workflow publica el sitio en la URL de Pages del repositorio:
+  `https://<owner>.github.io/<repo>/`
+- Este proyecto ya incluye fallback SPA (`public/404.html`) para que rutas como
+  `/admin/reportes` funcionen también al abrirse directamente.
+
