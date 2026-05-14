@@ -5,8 +5,6 @@ Este `.zip` contiene lo **esencial** para reutilizar las pantallas del **panel a
 ## Qué incluye
 
 - `src/components/admin/*`: layout + pantallas del admin.
-- `src/data/mockData.js`: datos mock usados por el admin (atletas, scouts, métricas).
-- `src/data/adminMockData.js`: métricas mock del admin.
 - `src/config/sportFieldConfig.js`: configuración de campos por deporte (persistencia en `localStorage`).
 - `src/hooks/useSportFieldConfig.js`: hook para consumir la config (escucha `storage` + evento custom).
 - `src/utils/Logo_Atletain.png` y `src/utils/profile.png`: assets usados por sidebar/avatares.
@@ -61,7 +59,7 @@ export function AppRoutes() {
 
 ## Notas
 
-- Este export **no incluye** integraciones con backend (todo está en modo demo/mock).
+- Este export está configurado para consumir datos desde **Supabase**.
 - `AdminSportFields` guarda la configuración en `localStorage`. Si quieres persistencia real, se conecta a tu API/DB.
 
 ## Ejecutar en local
