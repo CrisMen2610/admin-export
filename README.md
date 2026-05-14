@@ -96,6 +96,9 @@ Este repositorio despliega automáticamente a GitHub Pages con GitHub Actions.
 
 1. Ve a **Settings → Pages** en el repositorio.
 2. En **Build and deployment**, selecciona **Source: GitHub Actions**.
+3. Ve a **Settings → Secrets and variables → Actions** y crea estos secretos:
+   - `VITE_SUPABASE_URL`
+   - `VITE_SUPABASE_ANON_KEY`
 
 ### 2) Publicar
 
