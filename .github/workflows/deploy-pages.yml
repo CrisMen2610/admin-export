@@ -44,7 +44,17 @@ jobs:
           fi
 
       - name: Build
+        env:
+          VITE_SUPABASE_URL: ${{ secrets.VITE_SUPABASE_URL }}
+          VITE_SUPABASE_ANON_KEY: ${{ secrets.VITE_SUPABASE_ANON_KEY }}
+          VITE_POSTHOG_HOST: ${{ secrets.VITE_POSTHOG_HOST }}
+          VITE_POSTHOG_PROJECT_URL: ${{ secrets.VITE_POSTHOG_PROJECT_URL }}
+          VITE_POSTHOG_DASHBOARD_EMBED_URL: ${{ secrets.VITE_POSTHOG_DASHBOARD_EMBED_URL }}
+          VITE_POSTHOG_INSIGHTS_EMBED_URL: ${{ secrets.VITE_POSTHOG_INSIGHTS_EMBED_URL }}
         run: npm run build
+
+      - name: Create SPA 404 fallback
+        run: cp dist/index.html dist/404.html
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3

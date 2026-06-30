@@ -4,6 +4,7 @@ import AdminLayout from "./components/admin/AdminLayout";
 import AdminDashboard from "./components/admin/AdminDashboard";
 import AdminAthletes from "./components/admin/AdminAthletes";
 import AdminScouts from "./components/admin/AdminScouts";
+import AdminAnalytics from "./components/admin/AdminAnalytics";
 import AdminReports from "./components/admin/AdminReports";
 import AdminSportFields from "./components/admin/AdminSportFields";
 import AdminSettings from "./components/admin/AdminSettings";
@@ -52,6 +53,7 @@ export default function App() {
         <Route index element={<AdminDashboard />} />
         <Route path="atletas" element={<AdminAthletes />} />
         <Route path="scouts" element={<AdminScouts />} />
+        <Route path="analiticas" element={<AdminAnalytics />} />
         <Route path="reportes" element={<AdminReports />} />
         <Route path="campos-deportes" element={<AdminSportFields />} />
         <Route path="ajustes" element={<AdminSettings />} />

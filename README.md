@@ -97,6 +97,10 @@ Este repositorio despliega automáticamente a GitHub Pages con GitHub Actions.
 3. Ve a **Settings → Secrets and variables → Actions** y crea estos secretos:
    - `VITE_SUPABASE_URL`
    - `VITE_SUPABASE_ANON_KEY`
+   - `VITE_POSTHOG_HOST` (opcional)
+   - `VITE_POSTHOG_PROJECT_URL` (opcional)
+   - `VITE_POSTHOG_DASHBOARD_EMBED_URL` (opcional)
+   - `VITE_POSTHOG_INSIGHTS_EMBED_URL` (opcional)
 
 ### 2) Publicar
 
@@ -107,6 +111,22 @@ Este repositorio despliega automáticamente a GitHub Pages con GitHub Actions.
 
 - El workflow publica el sitio en la URL de Pages del repositorio:
   `https://<owner>.github.io/<repo>/`
-- Este proyecto ya incluye fallback SPA (`public/404.html`) para que rutas como
+- Este proyecto crea fallback SPA (`dist/404.html`) en CI para que rutas como
   `/admin/reportes` funcionen también al abrirse directamente.
 
+## Módulo de analíticas (PostHog) visible en admin
+
+El panel incluye una pantalla en `/admin/analiticas` para consultar PostHog desde el admin.
+
+Importante:
+- el admin **no envía** eventos a PostHog
+- esta vista solo muestra/abre dashboards e insights ya recolectados por la app principal
+
+Variables opcionales en `.env` para embebidos:
+
+```bash
+VITE_POSTHOG_HOST="https://us.posthog.com"
+VITE_POSTHOG_PROJECT_URL="https://us.posthog.com/project/00000"
+VITE_POSTHOG_DASHBOARD_EMBED_URL=""
+VITE_POSTHOG_INSIGHTS_EMBED_URL=""
+```
